@@ -22,12 +22,18 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifdef USE_BTXH_CODE
+#undef USE_BTXH_CODE
+#endif
+#define USE_BTXH_CODE 1
+
 #include "ONScripter.h"
 #if defined(LINUX) || defined(MACOSX) || defined(IOS)
 #include <sys/types.h>
 #include <sys/stat.h>
 #elif defined(WIN32)
 #include <direct.h>
+
 #endif
 #include "version.h"
 #include "Utils.h"
@@ -3385,7 +3391,7 @@ int ONScripter::captionCommand()
     setStr( &wm_title_string, buf2 );
     setStr( &wm_icon_string,  buf2 );
     delete[] buf2;
-    
+
     setCaption( wm_title_string, wm_icon_string );
 #if defined _WIN32 && defined _MSC_VER
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, wm_title_string, -1, nullptr, 0);
@@ -4020,19 +4026,18 @@ int ONScripter::allsp2resumeCommand()
 
 int ONScripter::allspresumeCommand()
 {
-    all_sprite_hide_flag = false;
+	all_sprite_hide_flag = false;
+	for (int i = 0; i < 3; i++) {
+		AnimationInfo &ai = tachi_info[i];
+		if (ai.image_surface && ai.visible)
+			dirty_rect.add(ai.pos);
+	}
 
-    for ( int i=0 ; i<3 ; i++ ){
-        AnimationInfo &ai = tachi_info[i];
-        if (ai.image_surface && ai.visible)
-            dirty_rect.add( ai.pos );
-    }
-
-    for ( int i=0 ; i<MAX_SPRITE_NUM ; i++ ){
-        AnimationInfo &ai = sprite_info[i];
-        if (ai.image_surface && ai.visible)
-            dirty_rect.add( ai.pos );
-    }
+	for (int i = 0; i < MAX_SPRITE_NUM; i++) {
+		AnimationInfo &ai = sprite_info[i];
+		if (ai.image_surface && ai.visible)
+			dirty_rect.add(ai.pos);
+	}
 
     return RET_CONTINUE;
 }
