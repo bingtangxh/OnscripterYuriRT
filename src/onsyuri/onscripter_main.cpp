@@ -30,6 +30,12 @@
 #include "version.h"
 #include "stdlib.h"
 
+#ifdef USE_BTXH_CODE
+#undef USE_BTXH_CODE
+#endif
+#define USE_BTXH_CODE 1
+
+
 #if USE_BTXH_CODE
 #if _WIN32 && defined _MSC_VER
  // Use version 6.0 manifest in order to use Windows 8 like MessageBox Style
@@ -141,6 +147,7 @@ void optionHelp()
     printf( "      --key-exe file\tset a file (*.EXE) that includes a key table\n");
     printf( "      --fontcache\tcache default font\n");
     exit(0);
+#endif
 }
 
 void optionVersion()
@@ -153,7 +160,7 @@ void optionVersion()
                 (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n"
 		"This is free software; see the source for copying conditions.\n"
 		;
-#ifdef _WIN32 && defined _MSC_VER
+#if defined _WIN32 && defined _MSC_VER
 	if (!_isatty(_fileno(stdout))) MessageBox(NULL, versionText, "OnscripterYuri", MB_ICONINFORMATION | MB_OK);
 #else
 	if(0) printf(versionText);
@@ -166,6 +173,7 @@ void optionVersion()
                 (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n");
     printf("This is free software; see the source for copying conditions.\n");
     exit(0);
+#endif
 }
 
 #if defined(ANDROID)
