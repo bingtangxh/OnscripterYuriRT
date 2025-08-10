@@ -49,10 +49,8 @@ extern "C" void waveCallback(int channel);
 
 #if USE_BTXH_CODE
 #ifdef _WIN32
-#ifdef _MSC_VER
 #define NOMINMAX
 #include <Windows.h>
-#endif
 #endif
 #endif
 
@@ -434,7 +432,7 @@ void ONScripter::setCDNumber(int cdrom_drive_number)
 
 void ONScripter::setFontFile(const char *filename)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, filename, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, filename, -1, wide_str, wide_len);
@@ -446,7 +444,7 @@ void ONScripter::setFontFile(const char *filename)
 	filename = acp_str;
 #endif
     setStr(&default_font, filename);
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	filename = filename_temp;
 	delete[] acp_str;
 #endif
@@ -454,7 +452,7 @@ void ONScripter::setFontFile(const char *filename)
 
 void ONScripter::setRegistryFile(const char *filename)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, filename, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, filename, -1, wide_str, wide_len);
@@ -466,7 +464,7 @@ void ONScripter::setRegistryFile(const char *filename)
 	filename = acp_str;
 #endif
     setStr(&registry_file, filename);
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	filename = filename_temp;
 	delete[] acp_str;
 #endif
@@ -474,7 +472,7 @@ void ONScripter::setRegistryFile(const char *filename)
 
 void ONScripter::setDLLFile(const char *filename)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, filename, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, filename, -1, wide_str, wide_len);
@@ -486,7 +484,7 @@ void ONScripter::setDLLFile(const char *filename)
 	filename = acp_str;
 #endif
     setStr(&dll_file, filename);
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	filename = filename_temp;
 	delete[] acp_str;
 #endif
@@ -494,7 +492,7 @@ void ONScripter::setDLLFile(const char *filename)
 
 void ONScripter::setArchivePath(const char *path)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, path, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, wide_str, wide_len);
@@ -519,7 +517,7 @@ void ONScripter::setArchivePath(const char *path)
 	// printf("ONScripter::setArchivePath - %s\n", archive_path);
     g_stdoutpath = std::string(archive_path) + "stdout.txt";
     g_stderrpath = std::string(archive_path) + "stderr.txt";
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	path = path_temp;
 	delete[] acp_str;
 #endif
@@ -527,7 +525,7 @@ void ONScripter::setArchivePath(const char *path)
 
 void ONScripter::setSaveDir(const char *path)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, path, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, wide_str, wide_len);
@@ -544,7 +542,7 @@ void ONScripter::setSaveDir(const char *path)
     script_h.setSaveDir(save_dir);
     g_stdoutpath = std::string(save_dir) + "stdout.txt";
     g_stderrpath = std::string(save_dir) + "stderr.txt";
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 	path = path_temp;
 	delete[] acp_str;
 #endif
@@ -799,7 +797,7 @@ int ONScripter::init()
 #endif
 		if (sentence_font.openFont(font_file_alternative_c_str, screen_ratio1, screen_ratio2) == NULL) {
 			delete[] font_file_alternative_c_str;
-#if defined _WIN32 && defined _MSC_VER
+#ifdef _WIN32
 			std::string fontErrorPromptString;
 			fontErrorPromptString = "Can't open font file: "
 				+ std::string(font_file)

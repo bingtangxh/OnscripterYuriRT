@@ -39,7 +39,7 @@
 #include "Utils.h"
 #include <algorithm>
 
-#if defined _WIN32 && USE_BTXH_CODE && defined _MSC_VER
+#if defined _WIN32 && USE_BTXH_CODE
 #define NOMINMAX
 #include <Windows.h>
 #include <Windows.UI.Notifications.h>
@@ -55,8 +55,10 @@
 #include <io.h>
 #include <versionhelpers.h>
 #include <roapi.h>
+// #include <winstring.h>
 #include <combaseapi.h>
-#define USE_TOAST 0
+// #include <corewrappers.h>
+#define USE_TOAST 1
 
 BOOL __stdcall SendBalloon(wchar_t* title, wchar_t* text);
 BOOL EnsureShortcutWithAppID(char *title, char *archive_path);
@@ -3393,7 +3395,7 @@ int ONScripter::captionCommand()
     delete[] buf2;
 
     setCaption( wm_title_string, wm_icon_string );
-#if defined _WIN32 && defined _MSC_VER
+#if defined _WIN32
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, wm_title_string, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, wm_title_string, -1, wide_str, wide_len);
@@ -3412,7 +3414,7 @@ int ONScripter::captionCommand()
 	printf("Width: %d  Height: %d\n", screen_device_width, screen_device_height);
 #endif
 	puts(wm_title_string);
-#if defined _WIN32 && defined _MSC_VER
+#if defined _WIN32
 	if (screen_device_width >= 1280 || screen_device_height >= 720) {
 #if USE_TOAST
 		ToastParam param = { L"Press Alt + Enter for fit\nor F10 for stretch", FALSE };
@@ -4279,7 +4281,7 @@ void ONScripter::stopSMPEG()
 }
 
 
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 
 BOOL __stdcall SendBalloon(wchar_t* title, wchar_t* text) {
 	char titleBuf[64] = { '\0' };
