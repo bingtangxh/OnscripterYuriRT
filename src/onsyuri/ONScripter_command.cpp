@@ -50,12 +50,8 @@
 #include <versionhelpers.h>
 #include <roapi.h>
 #include <combaseapi.h>
-<<<<<<< HEAD
+
 #define USE_TOAST 0
-=======
-// #include <corewrappers.h>
-#define USE_TOAST 1
->>>>>>> parent of cd187650... Disable Toast
 
 BOOL __stdcall SendBalloon(wchar_t* title, wchar_t* text);
 BOOL EnsureShortcutWithAppID(char *title, char *archive_path);
