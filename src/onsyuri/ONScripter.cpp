@@ -22,10 +22,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
 
 #include "ONScripter.h"
 #include "Utils.h"
@@ -515,8 +511,6 @@ void ONScripter::setArchivePath(const char *path)
     if (archive_path) delete[] archive_path;
     archive_path = new char[ RELATIVEPATHLENGTH + strlen(path) + 2 ];
     sprintf( archive_path, RELATIVEPATH "%s%c", path, DELIMITER );
-
-	// printf("ONScripter::setArchivePath - %s\n", archive_path);
     g_stdoutpath = std::string(archive_path) + "stdout.txt";
     g_stderrpath = std::string(archive_path) + "stderr.txt";
 #if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER

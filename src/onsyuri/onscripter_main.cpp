@@ -23,11 +23,6 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
-
 #include "ONScripter.h"
 #include "Utils.h"
 #include "gbk2utf16.h"
@@ -145,7 +140,6 @@ void optionHelp()
     printf( "      --edit\t\tenable online modification of the volume and variables when 'z' is pressed\n");
     printf( "      --key-exe file\tset a file (*.EXE) that includes a key table\n");
     printf( "      --fontcache\tcache default font\n");
-#endif
     exit(0);
 }
 
@@ -171,7 +165,6 @@ void optionVersion()
                 (c) 2014-2018 jh10001<jh10001@live.cn>\n\
                 (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n");
     printf("This is free software; see the source for copying conditions.\n");
-#endif
     exit(0);
 }
 
