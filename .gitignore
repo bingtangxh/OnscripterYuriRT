@@ -5,6 +5,7 @@ asset/stdout.txt
 asset/stderr.txt
 build/**
 build_*/**
+build-*/**
 thirdparty/**
 script/*.json
 save
@@ -12,6 +13,7 @@ save
 # vcpkg + CMake
 vcpkg/**
 vcpkg_installed/
+vcpkg_installed_*/
 CMakePresets.json
 
 # android

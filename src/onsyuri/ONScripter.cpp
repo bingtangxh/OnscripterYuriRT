@@ -795,7 +795,7 @@ int ONScripter::init()
 				+ "Check if \"-f\" parameter is missing from the command.";
 			MessageBox(NULL,
 				LPCSTR(fontErrorPromptString.c_str()),
-				"ONScripterYuri",
+				"OnscripterYuri",
 				MB_OK | MB_ICONERROR);
 #endif
 #else
