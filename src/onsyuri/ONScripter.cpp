@@ -22,10 +22,6 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
 
 #include "ONScripter.h"
 #include "Utils.h"
@@ -41,13 +37,7 @@
 extern Coding2UTF16 *coding2utf16;
 extern "C" void waveCallback(int channel);
 
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
-
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER && defined _MSC_VER
-#define NOMINMAX
+#if USE_BTXH_CODE && defined _WIN32
 #include <Windows.h>
 #include <io.h>
 #endif
@@ -440,11 +430,11 @@ void ONScripter::setFontFile(const char *filename)
 	delete[] wide_str;
 	const char* filename_temp = filename;
 	filename = acp_str;
-#endif
     setStr(&default_font, filename);
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
 	filename = filename_temp;
 	delete[] acp_str;
+#else
+    setStr(&default_font,filename);
 #endif
 }
 
@@ -460,11 +450,11 @@ void ONScripter::setRegistryFile(const char *filename)
 	delete[] wide_str;
 	const char* filename_temp = filename;
 	filename = acp_str;
-#endif
     setStr(&registry_file, filename);
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
 	filename = filename_temp;
 	delete[] acp_str;
+#else
+    setStr(&registry_file,filename);
 #endif
 }
 
@@ -480,11 +470,11 @@ void ONScripter::setDLLFile(const char *filename)
 	delete[] wide_str;
 	const char* filename_temp = filename;
 	filename = acp_str;
-#endif
     setStr(&dll_file, filename);
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
 	filename = filename_temp;
 	delete[] acp_str;
+#else
+    setStr(&dll_file,filename);
 #endif
 }
 
@@ -787,7 +777,7 @@ int ONScripter::init()
 #endif
 		if (sentence_font.openFont(font_file_alternative_c_str, screen_ratio1, screen_ratio2) == NULL) {
 			delete[] font_file_alternative_c_str;
-#if defined _WIN32 && defined _MSC_VER
+#if defined _WIN32
 			std::string fontErrorPromptString;
 			fontErrorPromptString = "Can't open font file: "
 				+ std::string(font_file)

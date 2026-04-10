@@ -23,11 +23,6 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
-
 #include "ONScripter.h"
 #include "Utils.h"
 #include "gbk2utf16.h"
@@ -39,7 +34,6 @@
 #if defined _WIN32 && defined _MSC_VER
  // Use version 6.0 manifest in order to use Windows 8 like MessageBox Style
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#define NOMINMAX
 #include <Windows.h>
 #include <io.h>
 #endif
@@ -151,27 +145,11 @@ void optionHelp()
 
 void optionVersion()
 {
-#if USE_BTXH_CODE
-	char versionText[] =
-		"Written by Ogapee <ogapee@aqua.dti2.ne.jp>\n\n"
-		"Copyright (c) 2001-2018 Ogapee.\n\
-                (c) 2014-2018 jh10001<jh10001@live.cn>\n\
-                (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n"
-		"This is free software; see the source for copying conditions.\n"
-		;
-#if defined _WIN32 && defined _MSC_VER
-	if (!_isatty(_fileno(stdout))) MessageBox(NULL, versionText, "OnscripterYuri", MB_ICONINFORMATION | MB_OK);
-#else
-	if(0) puts(versionText);
-#endif
-	else puts(versionText);
-#else
     printf("Written by Ogapee <ogapee@aqua.dti2.ne.jp>\n\n");
     printf("Copyright (c) 2001-2018 Ogapee.\n\
                 (c) 2014-2018 jh10001<jh10001@live.cn>\n\
                 (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n");
     printf("This is free software; see the source for copying conditions.\n");
-#endif
     exit(0);
 }
 

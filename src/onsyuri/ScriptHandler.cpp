@@ -27,15 +27,10 @@
 #include "Utils.h"
 #include "coding2utf16.h"
 
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
-
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
-#define NOMINMAX
+#if defined _WIN32
 #include <Windows.h>
 #endif
+
 #if defined(WEB)
 #include <emscripten.h>
 #endif
@@ -1028,7 +1023,7 @@ int ScriptHandler::readScript( char *path )
     }
 
     if (fp == NULL){
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _WIN32
 		MessageBox(NULL,
 			"Can't open any of the following:\n"
 			"0.txt\n00.txt\nnscript.dat\nnscript.___\n"

@@ -22,11 +22,6 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
-
 #include "ONScripter.h"
 #if defined(LINUX) || defined(MACOSX) || defined(IOS)
 #include <sys/types.h>
@@ -40,7 +35,6 @@
 #include <algorithm>
 
 #if defined _WIN32 && defined _MSC_VER && USE_BTXH_CODE
-#define NOMINMAX
 #include <Windows.h>
 #include <Windows.UI.Notifications.h>
 #include <wrl/client.h>
@@ -76,12 +70,6 @@ struct ToastParam {
 };
 #endif
 #endif
-
-#ifdef USE_BTXH_CODE
-#undef USE_BTXH_CODE
-#endif
-#define USE_BTXH_CODE 1
-
 
 #if defined(MACOSX) && (SDL_COMPILEDVERSION >= 1208)
 #include <CoreFoundation/CoreFoundation.h>
