@@ -420,22 +420,7 @@ void ONScripter::setCDNumber(int cdrom_drive_number)
 
 void ONScripter::setFontFile(const char *filename)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
-	int wide_len = MultiByteToWideChar(CP_UTF8, 0, filename, -1, nullptr, 0);
-	wchar_t* wide_str = new wchar_t[wide_len + 1];
-	MultiByteToWideChar(CP_UTF8, 0, filename, -1, wide_str, wide_len);
-	int acp_len = WideCharToMultiByte(CP_ACP, 0, wide_str, -1, nullptr, 0, nullptr, nullptr);
-	char* acp_str = new char[acp_len + 1];
-	WideCharToMultiByte(CP_ACP, 0, wide_str, -1, acp_str, acp_len, nullptr, nullptr);
-	delete[] wide_str;
-	const char* filename_temp = filename;
-	filename = acp_str;
-    setStr(&default_font, filename);
-	filename = filename_temp;
-	delete[] acp_str;
-#else
     setStr(&default_font,filename);
-#endif
 }
 
 void ONScripter::setRegistryFile(const char *filename)
