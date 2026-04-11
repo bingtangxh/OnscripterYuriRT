@@ -34,7 +34,7 @@
 #include "Utils.h"
 #include <algorithm>
 
-#if defined _WIN32 && defined _MSC_VER && USE_BTXH_CODE
+#if defined _MSC_VER && USE_BTXH_CODE
 #include <Windows.h>
 #include <Windows.UI.Notifications.h>
 #include <wrl/client.h>
@@ -3385,7 +3385,7 @@ int ONScripter::captionCommand()
     delete[] buf2;
 
     setCaption( wm_title_string, wm_icon_string );
-#if defined _WIN32 && defined _MSC_VER
+#if defined _MSC_VER
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, wm_title_string, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, wm_title_string, -1, wide_str, wide_len);
@@ -4270,7 +4270,7 @@ void ONScripter::stopSMPEG()
 #endif        
 }
 
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 
 BOOL __stdcall SendBalloon(wchar_t* title, wchar_t* text) {
 	char titleBuf[64] = { '\0' };

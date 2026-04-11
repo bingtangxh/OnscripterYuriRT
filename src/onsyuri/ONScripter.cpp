@@ -425,7 +425,7 @@ void ONScripter::setFontFile(const char *filename)
 
 void ONScripter::setRegistryFile(const char *filename)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, filename, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, filename, -1, wide_str, wide_len);
@@ -445,7 +445,7 @@ void ONScripter::setRegistryFile(const char *filename)
 
 void ONScripter::setDLLFile(const char *filename)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, filename, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, filename, -1, wide_str, wide_len);
@@ -465,7 +465,7 @@ void ONScripter::setDLLFile(const char *filename)
 
 void ONScripter::setArchivePath(const char *path)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, path, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, wide_str, wide_len);
@@ -482,7 +482,7 @@ void ONScripter::setArchivePath(const char *path)
     sprintf( archive_path, RELATIVEPATH "%s%c", path, DELIMITER );
     g_stdoutpath = std::string(archive_path) + "stdout.txt";
     g_stderrpath = std::string(archive_path) + "stderr.txt";
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 	path = path_temp;
 	delete[] acp_str;
 #endif
@@ -490,7 +490,7 @@ void ONScripter::setArchivePath(const char *path)
 
 void ONScripter::setSaveDir(const char *path)
 {
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 	int wide_len = MultiByteToWideChar(CP_UTF8, 0, path, -1, nullptr, 0);
 	wchar_t* wide_str = new wchar_t[wide_len + 1];
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, wide_str, wide_len);
@@ -507,7 +507,7 @@ void ONScripter::setSaveDir(const char *path)
     script_h.setSaveDir(save_dir);
     g_stdoutpath = std::string(save_dir) + "stdout.txt";
     g_stderrpath = std::string(save_dir) + "stderr.txt";
-#if USE_BTXH_CODE && defined _WIN32 && defined _MSC_VER
+#if USE_BTXH_CODE && defined _MSC_VER
 	path = path_temp;
 	delete[] acp_str;
 #endif
