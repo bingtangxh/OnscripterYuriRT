@@ -28,7 +28,6 @@
 #include <sys/stat.h>
 #elif defined(WIN32)
 #include <direct.h>
-
 #endif
 #include "version.h"
 #include "Utils.h"
@@ -1984,6 +1983,7 @@ int ONScripter::layermessageCommand()
   return RET_CONTINUE;
 }
 
+
 int ONScripter::kinsokuCommand()
 {
     if (script_h.compareString("on")){
@@ -3348,6 +3348,7 @@ int ONScripter::captionCommand()
     delete[] buf2;
 
     setCaption( wm_title_string, wm_icon_string );
+
     return RET_CONTINUE;
 }
 
@@ -3940,6 +3941,7 @@ int ONScripter::allsp2resumeCommand()
 int ONScripter::allspresumeCommand()
 {
 	all_sprite_hide_flag = false;
+
 	for (int i = 0; i < 3; i++) {
 		AnimationInfo &ai = tachi_info[i];
 		if (ai.image_surface && ai.visible)
