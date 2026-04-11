@@ -3346,7 +3346,7 @@ int ONScripter::captionCommand()
     setStr( &wm_title_string, buf2 );
     setStr( &wm_icon_string,  buf2 );
     delete[] buf2;
-
+    
     setCaption( wm_title_string, wm_icon_string );
 
     return RET_CONTINUE;
@@ -3940,19 +3940,19 @@ int ONScripter::allsp2resumeCommand()
 
 int ONScripter::allspresumeCommand()
 {
-	all_sprite_hide_flag = false;
+    all_sprite_hide_flag = false;
 
-	for (int i = 0; i < 3; i++) {
-		AnimationInfo &ai = tachi_info[i];
-		if (ai.image_surface && ai.visible)
-			dirty_rect.add(ai.pos);
-	}
+    for ( int i=0 ; i<3 ; i++ ){
+        AnimationInfo &ai = tachi_info[i];
+        if (ai.image_surface && ai.visible)
+            dirty_rect.add( ai.pos );
+    }
 
-	for (int i = 0; i < MAX_SPRITE_NUM; i++) {
-		AnimationInfo &ai = sprite_info[i];
-		if (ai.image_surface && ai.visible)
-			dirty_rect.add(ai.pos);
-	}
+    for ( int i=0 ; i<MAX_SPRITE_NUM ; i++ ){
+        AnimationInfo &ai = sprite_info[i];
+        if (ai.image_surface && ai.visible)
+            dirty_rect.add( ai.pos );
+    }
 
     return RET_CONTINUE;
 }

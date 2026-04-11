@@ -28,4 +28,3 @@ src/onsyuri_android/app/cpp/thirdparty/**
 src/onsyuri_android/app/.cxx/**
 src/onsyuri_android/app/debug/**
 src/onsyuri_android/app/release/**
-src/onsyuri_android/app/sign.jks
