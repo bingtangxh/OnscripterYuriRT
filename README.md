@@ -405,4 +405,7 @@ sudo apt-get install qemu-user-static binfmt-support
 
 - ~~video support (future plan)~~  partly finish by invoke system player  
 - ~~web preloading (future plan)~~ might not need ? lazyload partly solved  
+<<<<<<< HEAD
 
+=======
+>>>>>>> ddea390 (Squash: my changes since fork)

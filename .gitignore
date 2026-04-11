@@ -5,9 +5,17 @@ asset/stdout.txt
 asset/stderr.txt
 build/**
 build_*/**
+build-*/**
 thirdparty/**
 script/*.json
 save
+
+# vcpkg + CMake
+
+vcpkg_installed/
+vcpkg_installed_*/**
+vcpkg_installed_*/**
+CMakeCache.txt
 
 # android
 local.properties
@@ -20,3 +28,4 @@ src/onsyuri_android/app/cpp/thirdparty/**
 src/onsyuri_android/app/.cxx/**
 src/onsyuri_android/app/debug/**
 src/onsyuri_android/app/release/**
+src/onsyuri_android/app/sign.jks
