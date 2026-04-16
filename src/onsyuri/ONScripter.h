@@ -582,6 +582,7 @@ private:
 
     // ----------------------------------------
     // variables and methods relevant to file/file2
+    bool use_ansi_archive_path;
     void searchSaveFile( SaveFileInfo &info, int no );
     char *readSaveStrFromFile( int no );
     int  loadSaveFile( int no );
@@ -591,7 +592,10 @@ private:
 
     int  loadSaveFile2( int file_version );
     void saveSaveFile2( bool output_flag );
-    
+public:
+    void setUseANSIArchivePath();
+
+private:
     // ----------------------------------------
     // variables and methods relevant to image
     bool monocro_flag;

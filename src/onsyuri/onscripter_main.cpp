@@ -465,6 +465,9 @@ void parseOption(int argc, char *argv[]) {
             else if (!strcmp(argv[0]+1, "-fontcache")){
                 ons.setFontCache();
             }
+            else if (!strcmp(argv[0]+1,"-use-ansi-archive-path")){
+                ons.setUseANSIArchivePath();
+            }
             else{
                 utils::printInfo(" unknown option %s\n", argv[0]);
             }
