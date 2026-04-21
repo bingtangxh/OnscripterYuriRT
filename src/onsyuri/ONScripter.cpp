@@ -38,7 +38,9 @@ extern Coding2UTF16 *coding2utf16;
 extern "C" void waveCallback(int channel);
 
 #ifdef _WIN32
-#include <Windows.h>
+#define NOMINMAX
+#include <stringapiset.h>
+#undef NOMINMAX
 #endif
 
 #define DEFAULT_AUDIOBUF  4096
