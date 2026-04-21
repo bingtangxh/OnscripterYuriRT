@@ -31,6 +31,13 @@
 #include <string.h>
 #include "BaseReader.h"
 
+#if defined(_WIN32) || defined(__WIN32__)
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <io.h>
+#endif
+
+
 #define IS_TWO_BYTE(x) \
         ( ((unsigned char)(x) > (unsigned char)0x80) && ((unsigned char)(x) !=(unsigned char) 0xff) )
 

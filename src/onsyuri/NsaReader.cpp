@@ -107,6 +107,10 @@ int NsaReader::openForConvert( char *nsa_name, int archive_type, unsigned int ns
     sar_flag = false;
     if ( ( archive_info.file_handle = ::fopen( nsa_name, "rb" ) ) == NULL ){
         utils::printError( "can't open file %s\n", nsa_name );
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="can't open file\n"+std::string(nsa_name)+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         return -1;
     }
 

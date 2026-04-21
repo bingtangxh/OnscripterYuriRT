@@ -30,6 +30,16 @@
 #include "DirtyRect.h"
 #include "ButtonLink.h"
 
+#if defined(_WIN32) || defined(__WIN32__)
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+// #include <stringapiset.h>
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <io.h>
+#endif
+
 #if defined(ANDROID)
 #include "SDL.h"
 #include "SDL_image.h"
@@ -583,6 +593,10 @@ private:
     // ----------------------------------------
     // variables and methods relevant to file/file2
     bool use_ansi_archive_path;
+public:
+    bool is_stdout_invisible;
+
+private:
     void searchSaveFile( SaveFileInfo &info, int no );
     char *readSaveStrFromFile( int no );
     int  loadSaveFile( int no );

@@ -37,10 +37,6 @@
 extern Coding2UTF16 *coding2utf16;
 extern "C" void waveCallback(int channel);
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
 #define DEFAULT_AUDIOBUF  4096
 
 #define FONT_FILE "default.ttf"
@@ -139,6 +135,10 @@ void ONScripter::initSDL()
 
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER  ) < 0 ){
         utils::printError("Couldn't initialize SDL: %s\n", SDL_GetError());
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Couldn't initialize SDL: \n"+std::string(SDL_GetError())+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit(-1);
     }
 
@@ -150,6 +150,10 @@ void ONScripter::initSDL()
 #ifdef USE_CDROM
     if( cdaudio_flag && SDL_InitSubSystem( SDL_INIT_CDROM ) < 0 ){
         utils::printError("Couldn't initialize CD-ROM: %s\n", SDL_GetError());
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Couldn't initialize CD-ROM: \n"+std::string(SDL_GetError())+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit(-1);
     }
 #endif
@@ -169,6 +173,10 @@ void ONScripter::initSDL()
     /* Initialize SDL */
     if ( TTF_Init() < 0 ){
         utils::printError("can't initialize SDL TTF\n");
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Can't initialize SDL TTF\n" "OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit(-1);
     }
 
@@ -250,6 +258,10 @@ void ONScripter::initSDL()
     window = SDL_CreateWindow(NULL, window_x, window_y, screen_device_width, screen_device_height, window_flag);
     if (window == NULL) {
         utils::printError("Could not create window: %s\n", SDL_GetError());
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Couldn't create window: \n"+std::string(SDL_GetError())+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit(-1);
     }
     Uint32 render_flag = SDL_RENDERER_ACCELERATED;
@@ -262,6 +274,10 @@ void ONScripter::initSDL()
     }
     if (renderer == NULL) {
         utils::printError("Could not create renderer: %s\n", SDL_GetError());
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Could not create renderer: \n"+std::string(SDL_GetError())+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit(-1);
     }
 
@@ -690,6 +706,10 @@ int ONScripter::init()
         FILE *fp = fopen(font_file, "rb");
         if (fp == NULL) {
             utils::printError("can't open font file: %s\n", font_file);
+            if (!_isatty(fileno(stdout))){
+                std::string errorMessage="can't open font file\n"+std::string(font_file)+"\n"+"OnscripterYuriRT will now exit.";
+                MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+            }
             return -1;
         }
         SDL_RWops* fontfp = SDL_RWFromFP(fp, SDL_TRUE);
@@ -704,6 +724,10 @@ int ONScripter::init()
 
     if ( sentence_font.openFont( font_file, screen_ratio1, screen_ratio2 ) == NULL ){
 		utils::printError("can't open font file: %s\n", font_file);
+		if (!_isatty(fileno(stdout))){
+			std::string errorMessage="can't open font file\n"+std::string(font_file)+"\n"+"OnscripterYuriRT will now exit.";
+			MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+		}
 		return -1;
 	}
     

@@ -115,6 +115,10 @@ GlesRenderer::GlesRenderer(SDL_Window *window, SDL_Texture *texture, const float
         glGetProgramInfoLog(id, sizeof info_log, nullptr, info_log);
         utils::printError("Failed to link shader program:\n%s\n", info_log);
         glDeleteProgram(id);
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Failed to link shader program: \n"+std::string(info_log)+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit(-1);
     }
     post_program = id;

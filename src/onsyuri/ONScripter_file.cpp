@@ -211,6 +211,10 @@ int ONScripter::loadSaveFile( int no )
     sprintf( filename, "save%d.dat", no );
     if (loadFileIOBuf( filename ) == 0){
         utils::printError("can't open save file %s\n", filename );
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="can't open save file\n"+std::string(filename)+"\n";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         return -1;
     }
     
@@ -231,6 +235,10 @@ int ONScripter::loadSaveFile( int no )
     printf("Save file version is %d.%d\n", file_version/100, file_version%100 );
     if ( file_version > SAVEFILE_VERSION_MAJOR*100 + SAVEFILE_VERSION_MINOR ){
         utils::printError("Save file is newer than %d.%d, please use the latest ONScripter.\n", SAVEFILE_VERSION_MAJOR, SAVEFILE_VERSION_MINOR );
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Save file is newer than "+std::to_string(SAVEFILE_VERSION_MAJOR)+"."+std::to_string(SAVEFILE_VERSION_MINOR)+", please use the latest ONScripter.\n";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         return -1;
     }
 
@@ -238,7 +246,10 @@ int ONScripter::loadSaveFile( int no )
         return loadSaveFile2( file_version );
     
     utils::printError("Save file is too old.\n");
-
+    if (!_isatty(fileno(stdout))){
+        std::string errorMessage="Save file is too old.\n";
+        MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+    }
     return -1;
 }
 
@@ -273,6 +284,10 @@ int ONScripter::writeSaveFile( int no, const char *savestr )
     file_io_buf_ptr = save_data_len;
     if (saveFileIOBuf( filename, 0, savestr )){
         utils::printError("can't open save file %s for writing\n", filename );
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="can't open save file\n"+std::string(filename)+"\n";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         return -1;
     }
 #if defined(WEB)

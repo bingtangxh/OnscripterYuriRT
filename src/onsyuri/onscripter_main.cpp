@@ -54,49 +54,59 @@ std::string g_stderrpath = "stderr.txt";
 
 void optionHelp()
 {
-    printf( "Usage: onsyuri [option ...]\n" );
-    printf( "  -h, --help\t\tshow this help and exit\n");
-    printf( "  -v, --version\t\tshow the version information and exit\n\n");
-    
-    printf( " load options: \n");
-    printf( "  -f, --font file\tset a TTF font file\n");
-    printf( "  -r, --root path\tset the root path to the archives\n");
-    printf( "      --save-dir\tset save dir\n");
-    printf( "      --debug:1\t\tprint debug info\n");
-    printf( "      --enc:[gbk|sjis|utf8]\tdefine the encoding of script\n\n");
+    char helpText[]=
+        "Usage: onsyuri [option ...]\n"
+        "  -h, --help\t\tshow this help and exit\n"
+        "  -v, --version\t\tshow the version information and exit\n\n"
 
-    printf( " render options: \n");
-    printf( "      --window\t\tstart in windowed mode\n");
-    printf( "      --width 1280\tforce window width\n");
-    printf( "      --height 720\tforce window height\n");
-    printf( "      --fullscreen\tstart in fullscreen mode (alt+f or alt+enter)\n");
-    printf( "      --fullscreen2\tstart in fullscreen mode with stretch (f10 toggle stretch)\n");
-    printf( "      --sharpness 3.1 \t use gles to make image sharp\n");
-    printf( "      --no-video\tdo not decode video\n");
-    printf( "      --no-vsync\tturn off vsync\n\n");
-    
-    printf( " other options: \n");
-    printf( "      --cdaudio\t\tuse CD audio if available\n");
-    printf( "      --cdnumber no\tchoose the CD-ROM drive number\n");
-    printf( "      --registry file\tset a registry file\n");
-    printf( "      --dll file\tset a dll file\n");
-    printf( "      --enable-wheeldown-advance\tadvance the text on mouse wheel down\n");
-    printf( "      --disable-rescale\tdo not rescale the images in the archives\n");
-    printf( "      --force-button-shortcut\tignore useescspc and getenter command\n");
-    printf( "      --render-font-outline\trender the outline of a text instead of casting a shadow\n");
-    printf( "      --edit\t\tenable online modification of the volume and variables when 'z' is pressed\n");
-    printf( "      --key-exe file\tset a file (*.EXE) that includes a key table\n");
-    printf( "      --fontcache\tcache default font\n");
+        " load options: \n"
+        "  -f, --font file\tset a TTF font file\n"
+        "  -r, --root path\tset the root path to the archives\n"
+        "      --save-dir\tset save dir\n"
+        "      --debug:1\t\tprint debug info\n"
+        "      --enc:[gbk|sjis|utf8]\tdefine the encoding of script\n\n"
+
+        " render options: \n"
+        "      --window\t\tstart in windowed mode\n"
+        "      --width 1280\tforce window width\n"
+        "      --height 720\tforce window height\n"
+        "      --fullscreen\tstart in fullscreen mode (alt+f or alt+enter)\n"
+        "      --fullscreen2\tstart in fullscreen mode with stretch (f10 toggle stretch)\n"
+        "      --sharpness 3.1 \t use gles to make image sharp\n"
+        "      --no-video\tdo not decode video\n"
+        "      --no-vsync\tturn off vsync\n\n"
+
+        " other options: \n"
+        "      --cdaudio\t\tuse CD audio if available\n"
+        "      --cdnumber no\tchoose the CD-ROM drive number\n"
+        "      --registry file\tset a registry file\n"
+        "      --dll file\tset a dll file\n"
+        "      --enable-wheeldown-advance\tadvance the text on mouse wheel down\n"
+        "      --disable-rescale\tdo not rescale the images in the archives\n"
+        "      --force-button-shortcut\tignore useescspc and getenter command\n"
+        "      --render-font-outline\trender the outline of a text instead of casting a shadow\n"
+        "      --edit\t\tenable online modification of the volume and variables when 'z' is pressed\n"
+        "      --key-exe file\tset a file (*.EXE) that includes a key table\n"
+        "      --fontcache\tcache default font\n";
+    if (!_isatty(fileno(stdout))){
+        MessageBox(NULL,helpText,"OnscripterYuriRT",MB_OK|MB_ICONQUESTION);
+    }
+    else { puts(helpText); }
     exit(0);
 }
 
 void optionVersion()
 {
-    printf("Written by Ogapee <ogapee@aqua.dti2.ne.jp>\n\n");
-    printf("Copyright (c) 2001-2018 Ogapee.\n\
+    char versionText[]=
+        "Written by Ogapee <ogapee@aqua.dti2.ne.jp>\n\n"
+        "Copyright (c) 2001-2018 Ogapee.\n\
                 (c) 2014-2018 jh10001<jh10001@live.cn>\n\
-                (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n");
-    printf("This is free software; see the source for copying conditions.\n");
+                (c) 2022-2023 yurisizuku <https://github.com/YuriSizuku>\n"
+        "This is free software; see the source for copying conditions.\n";
+    if (!_isatty(fileno(stdout))){
+        MessageBox(NULL,versionText,"OnscripterYuriRT",MB_OK|MB_ICONINFORMATION);
+    }
+    else { puts(versionText); }
     exit(0);
 }
 
@@ -570,11 +580,24 @@ int main(int argc, char *argv[])
     }
 
     if (coding2utf16 == NULL) coding2utf16 = new GBK2UTF16();
-
+    if (!_isatty(fileno(stdout))){
+        ons.is_stdout_invisible=true;
+    }
     // ----------------------------------------
     // Run ONScripter
-    if (ons.openScript()) exit(-1);
-    if (ons.init()) exit(-1);
+    if (ons.openScript()) { 
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Open script failed.\n""OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
+        exit(-1); }
+    if (ons.init()) { 
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Initialization failed.\n""OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
+        exit(-1);
+    }
 #if defined(WEB)
     EM_ASM(
         self.postMessage("onsinit");

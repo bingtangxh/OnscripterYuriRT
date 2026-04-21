@@ -559,6 +559,10 @@ void ScriptParser::writeLog( ScriptHandler::LogInfo &info )
 
     if (saveFileIOBuf( info.filename )){
         utils::printError("can't write %s\n", info.filename );
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Can't write "+std::string(info.filename)+"\n"+"OnscripterYuriRT will now exit.";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         exit( -1 );
     }
 }
@@ -598,6 +602,10 @@ void ScriptParser::errorAndExit( const char *str, const char *reason )
                  current_label_info.name,
                  current_line,
                  str );
+    if (!_isatty(fileno(stdout))){
+        std::string errorMessage=" *** Parse error at "+std::string(current_label_info.name)+":"+std::to_string(current_line)+" ["+std::string(str)+"] ***\nOnscripterYuriRT will now exit.";
+        MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+    }
     exit(-1);
 }
 
@@ -701,6 +709,10 @@ ScriptParser::EffectLink *ScriptParser::parseEffect(bool init_flag)
     }
 
     utils::printError( "Effect No. %d is not found.\n", tmp_effect.effect);
+    if (!_isatty(fileno(stdout))){
+        std::string errorMessage="Effect No. "+std::to_string(tmp_effect.effect)+" is not found.\nOnscripterYuriRT will now exit.";
+        MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+    }
     exit(-1);
 
     return NULL;

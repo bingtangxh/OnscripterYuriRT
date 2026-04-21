@@ -193,6 +193,10 @@ void ONScripter::drawChar( char* text, FontInfo *info, bool flush_flag, bool loo
         if ( info->openFont( font_file, screen_ratio1, screen_ratio2 ) == NULL ){
             utils::printError("can't open font file: %s\n", font_file );
             quit();
+            if (!_isatty(fileno(stdout))){
+                std::string errorMessage="Can't open font file: "+std::string(font_file)+"\n"+"OnscripterYuriRT will now exit.";
+                MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+            }
             exit(-1);
         }
     }

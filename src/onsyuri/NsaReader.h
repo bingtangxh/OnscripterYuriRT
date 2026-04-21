@@ -24,6 +24,13 @@
 #ifndef __NSA_READER_H__
 #define __NSA_READER_H__
 
+#if defined(_WIN32) || defined(__WIN32__)
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <io.h>
+#endif
+
+
 #include "SarReader.h"
 #define MAX_EXTRA_ARCHIVE 9
 #define MAX_NS2_ARCHIVE 100

@@ -949,6 +949,10 @@ void ScriptHandler::addStrAlias( const char *str1, const char *str2 )
 void ScriptHandler::errorAndExit( const char *str )
 {
     utils::printError( " **** Script error, %s [%s] ***\n", str, string_buffer);
+    if (!_isatty(fileno(stdout))){
+        std::string errorMessage=" **** Script error, \n"+std::string(str)+"\n["+std::string(string_buffer)+"] ***\nOnscripterYuriRT will now exit.";
+        MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+    }
     exit(-1);
 }
 
@@ -1020,6 +1024,10 @@ int ScriptHandler::readScript( char *path )
 
     if (fp == NULL){
         utils::printError( "can't open any of 0.txt, 00.txt, nscript.dat and nscript.___\n");
+        if (!_isatty(fileno(stdout))){
+            std::string errorMessage="Can't open any of the following:\n0.txt\n00.txt,\nnscript.dat\nnscript.___";
+            MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+        }
         return -1;
     }
     
@@ -1458,6 +1466,10 @@ void ScriptHandler::parseStr( char **buf )
         }
         if ( !p_str_alias ){
             utils::printInfo("can't find str alias for %s...\n", alias_buf );
+            if (!_isatty(fileno(stdout))){
+                std::string errorMessage="can't find str alias for "+std::string(alias_buf)+"...\n"+"OnscripterYuriRT will now exit.";
+                MessageBox(NULL,errorMessage.c_str(),"OnscripterYuriRT",MB_OK|MB_ICONERROR);
+            }
             exit(-1);
         }
         current_variable.type |= VAR_CONST;

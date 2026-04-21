@@ -32,6 +32,12 @@
 #include <SDL2/SDL_opengles2.h>
 #endif
 
+#if defined(_WIN32) || defined(__WIN32__)
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <io.h>
+#endif
+
 
 class GlesRenderer {
     SDL_Window *window;
